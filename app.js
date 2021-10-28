@@ -9,6 +9,7 @@ require("dotenv/config");
 app.use(cors());
 app.options("*", cors());
 app.use(helmet());
+
 //middleware
 app.use(express.json());
 app.use(morgan("common"));
@@ -41,7 +42,7 @@ mongoose
   });
 
 //Server
-const port = process.env.PORT
+const port = process.env.PORT || 3000
 app.listen(3000, () => {
   console.log(`server is running at port ${port}`);
 });
