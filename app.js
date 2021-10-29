@@ -3,6 +3,8 @@ const app = express();
 const morgan = require("morgan");
 const mongoose = require("mongoose");
 const cors = require("cors");
+const authJwt = require('./helpers/jwt')
+const errorHandler = require('./helpers/error-handler')
 const helmet = require("helmet");
 require("dotenv/config");
 
@@ -13,6 +15,8 @@ app.use(helmet());
 //middleware
 app.use(express.json());
 app.use(morgan("common"));
+app.use(authJwt())
+app.use(errorHandler)
 
 //Routes
 const categoriesRoutes = require("./routes/categories");
