@@ -3,9 +3,8 @@ const express = require('express');
 const { Category } = require('../models/category');
 const mongoose = require('mongoose');
 
-const CTRL = {};
 
-CTRL.getAllProducts = async (req, res) => {
+exports.getAllProducts = async (req, res) => {
     //localhost:3000/api/products?categories=id
     let filter = {};
     if (req.query.categories) {
@@ -20,7 +19,7 @@ CTRL.getAllProducts = async (req, res) => {
 
 }
 
-CTRL.getProductById = async (req, res) => {
+exports.getProductById = async (req, res) => {
     try {
         const product = await Product.findById(req.params.id).populate('category');
         res.send(product);
@@ -29,7 +28,7 @@ CTRL.getProductById = async (req, res) => {
     }
 }
 
-CTRL.addProduct = async (req, res) => {
+exports.addProduct = async (req, res) => {
     const category = await Category.findById(req.body.category);
     if (!category) {
         return res.status(400).send('Invalid Category');
@@ -55,7 +54,7 @@ CTRL.addProduct = async (req, res) => {
     }
 }
 
-CTRL.updateProduct = async (req, res) => {
+exports.updateProduct = async (req, res) => {
     if (!mongoose.isValidObjectId(req.params.id)) {
         res.status(400).send('Invalid Product Id')
     }
@@ -88,7 +87,7 @@ CTRL.updateProduct = async (req, res) => {
     }
 }
 
-CTRL.deleteProduct = async (req, res) => {
+exports.deleteProduct = async (req, res) => {
     try {
         await Product.findByIdAndRemove(req.params.id);
         res.status(200).json({ success: true, message: 'The product is deleted' })
@@ -97,7 +96,7 @@ CTRL.deleteProduct = async (req, res) => {
     }
 }
 
-CTRL.getCount = async (req, res) => {
+exports.getCount = async (req, res) => {
     try {
         const productCount = await Product.countDocuments((count) => count)
         res.send({
@@ -108,7 +107,7 @@ CTRL.getCount = async (req, res) => {
     }
 }
 
-CTRL.getFeaturedCount = async (req, res) => {
+exports.getFeaturedCount = async (req, res) => {
     const count = req.params.count ? req.params.count : 0
     try {
         const products = await Product.find({ isFeatured: true }).limit(+count);
@@ -120,5 +119,3 @@ CTRL.getFeaturedCount = async (req, res) => {
     }
 }
 
-
-module.exports = CTRL;

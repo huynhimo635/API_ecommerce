@@ -31,6 +31,7 @@ app.use(`${api}/products`, productsRoutes);
 app.use(`${api}/users`, usersRoutes);
 app.use(`${api}/orders`, ordersRoutes);
 
+
 //Database
 mongoose
   .connect(process.env.MONGO_URL, {
@@ -48,5 +49,5 @@ mongoose
 //Server
 const port = process.env.PORT || 3000
 app.listen(3000, () => {
-  console.log(`server is running at port ${port}`);
+  console.log(`Server is running at port ${port}`);
 });

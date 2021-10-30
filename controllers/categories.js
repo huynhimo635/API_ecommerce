@@ -1,9 +1,8 @@
 const { Category } = require('../models/category');
 const express = require('express');
 
-const CTRL = {}
 
-CTRL.getAllCategory = async (req, res) => {
+exports.getAllCategory = async (req, res) => {
     try {
         const categoryList = await Category.find();
         res.status(200).send(categoryList);
@@ -12,7 +11,7 @@ CTRL.getAllCategory = async (req, res) => {
     }
 }
 
-CTRL.getCategoryById = async (req, res) => {
+exports.getCategoryById = async (req, res) => {
     try {
         const category = await Category.findById(req.params.id);
         res.status(200).send(category);
@@ -21,7 +20,7 @@ CTRL.getCategoryById = async (req, res) => {
     }
 }
 
-CTRL.addCategory = async (req, res) => {
+exports.addCategory = async (req, res) => {
     let category = new Category({
         name: req.body.name,
         icon: req.body.icon,
@@ -35,7 +34,7 @@ CTRL.addCategory = async (req, res) => {
     }
 }
 
-CTRL.updateCategory = async (req, res) => {
+exports.updateCategory = async (req, res) => {
     try {
         const category = await Category.findByIdAndUpdate(
             req.params.id, {
@@ -51,7 +50,7 @@ CTRL.updateCategory = async (req, res) => {
     }
 }
 
-CTRL.deleteCategory = async (req, res) => {
+exports.deleteCategory = async (req, res) => {
     Category.findByIdAndRemove(req.params.id)
         .then(category => {
             if (category) {
@@ -64,4 +63,3 @@ CTRL.deleteCategory = async (req, res) => {
         })
 }
 
-module.exports = CTRL;
