@@ -35,7 +35,7 @@ app.use(`${api}/orders`, ordersRoutes);
 //compression
 app.use(
     compression({
-        level: 6,
+        level: 9,
         threshold: 10 * 1000,
         filter: (req, res) => {
             if (req.headers["x-no-compression"]) {
