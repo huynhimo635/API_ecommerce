@@ -11,7 +11,9 @@ const categorySchema = mongoose.Schema({
     color: {
         type: String,
     }
-})
+},
+    { timestamps: true }
+)
 
 exports.Category = mongoose.model('Category', categorySchema);
 

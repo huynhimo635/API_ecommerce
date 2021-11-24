@@ -8,6 +8,7 @@ const errorHandler = require("./helpers/error-handler");
 const helmet = require("helmet");
 require("dotenv/config");
 const compression = require("compression");
+const path = require('path');
 
 app.use(cors());
 app.options("*", cors());
@@ -17,6 +18,7 @@ app.use(helmet());
 app.use(express.json());
 app.use(morgan("common"));
 app.use(authJwt());
+app.use("/public/uploads", express.static(path.join(__dirname + "/public/uploads")));
 app.use(errorHandler);
 
 //Routes
@@ -35,7 +37,7 @@ app.use(`${api}/orders`, ordersRoutes);
 //compression
 app.use(
     compression({
-        level: 9,
+        level: 6,
         threshold: 10 * 1000,
         filter: (req, res) => {
             if (req.headers["x-no-compression"]) {
@@ -51,6 +53,7 @@ mongoose
     .connect(process.env.MONGO_URL, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
+        useFindAndModify: false,
         dbName: "ecommerce_api",
     })
     .then(() => {
