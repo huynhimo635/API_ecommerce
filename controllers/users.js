@@ -14,7 +14,7 @@ exports.getAllUser = async (req, res) => {
 
 exports.getUserById = async (req, res) => {
     try {
-        const user = await User.findByIdAndDelete(req.params.id).select("-passwordHash");
+        const user = await User.findById(req.params.id).select("-passwordHash");
         res.send(user);
     } catch (err) {
         res.status(500).json({ success: false, error: err });

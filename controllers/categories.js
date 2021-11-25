@@ -46,7 +46,7 @@ exports.updateCategory = async (req, res) => {
         )
         res.send(category);
     } catch (err) {
-        return res.status(400).send('The category cannot be created!').json({ error: err })
+        return res.status(400).send('The category cannot be updated!').json({ error: err })
     }
 }
 
